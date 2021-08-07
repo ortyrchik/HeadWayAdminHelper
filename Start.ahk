@@ -26,6 +26,78 @@ ToolTip
 FileDelete,%A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
 Return
 
+F4::
+{
+    ShowDialog(2, "Наказать игрока", "1.Ban - чит`n2.Mute - оскорбление`n3.Ban - упом родных`n4.Ban - оск основателей`n5.Ban - оск никнейм`n6.Ban - Взломан`n7.Kick - помеха`n8.Ban - обход наказания`n9.Prison - SK`n10.Prison - DriveBy`n11.Kick - AFK 120 sec(capture)`n12.Kick - помеха капту`n13.Prison - Sbiv", "Выдать", "Закрыть")
+    result := LineResult()
+    if (result == 1)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/ban  30 cheat {left 10}
+    }
+    else if (result == 2)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/mute  35 оскорбление {left 16}
+    }
+    else if (result == 3)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/ban  30 упом родных {left 16}
+    }
+    else if (result == 4)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/ban  30 оск основателей {left 20}
+    }
+    else if (result == 5)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/ban  30 оск никнейм {left 16}
+    }
+    else if (result == 6)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/ban  14 Продан/Передан/Взломан {left 27}
+    }
+    else if (result == 7)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/kick pomexa {left 8}
+    }
+    else if (result == 8)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/ban  30 obxod наказания {left 20}
+    }
+    else if (result == 9)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/jail  10 sk {left 7}
+    }
+    else if (result == 10)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/jail  15 DriveBy {left 12}
+    }
+    else if (result == 11)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/kick  afk 2 min {left 11}
+    }
+    else if (result == 12)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/kick  pomexa capty {left 14}
+    }
+    else if (result == 13)
+    {
+        SendMessage, 0x50,, 0x4190419,,
+		Sendinput, {F6}/prison  15 sbiv {left 9}
+    }
+}
+return
+
 
 F3::
 {
@@ -84,4 +156,26 @@ NumpadAdd::
 SendMessage, 0x50,, 0x4190419,,
 Sendinput, {F6}/ans  Подать заявку вы можете на нашем форуме headway-dm.ru {left 55}
 Return
+
+
+LineResult() {
+if (!isDialogOpen())
+return false
+if (getDialogStyle() = 0 || getDialogStyle() = 1 || getDialogStyle() = 3)
+return false
+while (!GetKeyState("LButton", "P") && !GetKeyState("Enter", "P") && !GetKeyState("Esc", "P"))
+continue
+if (GetKeyState("Enter", "P"))
+return getDialogLineNumber()
+else if (GetKeyState("Esc", "P"))
+return false
+else {
+   KeyWait, LButton
+   KeyWait, LButton, D T0.25
+   if (ErrorLevel)
+   return LineResult()
+   else
+   return getDialogLineNumber()
+    }
+}
 
