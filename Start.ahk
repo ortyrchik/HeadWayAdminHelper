@@ -2,29 +2,26 @@
 #include SAMP.ahk
 #SingleInstance Force
 #NoEnv
-ListLines Off
+ListLines Off  
 SetBatchLines -1
+ 
+Words = (prison|ban|kick|slap|offban|banip|offmute) 
+ 
+F2:: 
+ FileRead, Str, %A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
+ StringReplace, Str, Str, `r`n, `n, 1
+ StringReplace, Str, Str, `r, `n, 1
 
-chatlog := A_MyDocuments "\GTA San Andreas User Files\SAMP\chatlog.txt"
-FileDelete, %chatlog%
+ RegExMatch("`n" Str "`n", "i).*\n\[\d+:\d+:\d+]\s*\[A].*?\[.*?]:\s*(/`*" Words "\s.*?)\n", Match)  
+ ToolTip % Clipboard := Match1
+ FileAppend,%Match1%`n,logachat.ini
+ Sleep 100
+ SendInput,{F6}%match1% | {right1}
+ clipboard =
+ ToolTip
+ FileDelete,%A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
+ Return
 
-Words = (kick|mute|ban|prison|banip|offmute|offban|offprison|offbanip)
-
-F2::
-FileRead, Str, %A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
-StringReplace, Str, Str, `r`n, `n, 1
-StringReplace, Str, Str, `r, `n, 1
-
-RegExMatch("`n" Str "`n", "i).*\n\[\d+:\d+:\d+]\s*\[A\]\s\w+_(\w+)\[.*?]:\s*(/`*" Words "\s.*?)\n", Match)
-ToolTip % Clipboard := Match1
-FileAppend,%Match2% | %Match1%`n,logachat.ini
-SendMessage, 0x50,, 0x4190419,, A
-Sleep 300
-SendInput,{F6}%match2% | %match1% {enter}
-clipboard =
-ToolTip
-FileDelete,%A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
-Return
 
 F4::
 {
