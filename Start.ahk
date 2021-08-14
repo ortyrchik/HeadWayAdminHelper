@@ -5,7 +5,7 @@
 ListLines Off  
 SetBatchLines -1
  
-Words = (prison|ban|kick|slap|offban|banip|offmute) 
+Words = (prison|ban|kick|slap|offban|banip|offmute|mute) 
  
 F2:: 
  FileRead, Str, %A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
@@ -16,7 +16,7 @@ F2::
  ToolTip % Clipboard := Match1
  FileAppend,%Match1%`n,logachat.ini
  Sleep 100
- SendInput,{F6}%match1% | {right1}
+ SendInput,{F6}%match1% {Enter}
  clipboard =
  ToolTip
  FileDelete,%A_MyDocuments%\GTA San Andreas User Files\SAMP\chatlog.txt
@@ -121,17 +121,17 @@ Return
 
 Numpad4::
 SendMessage, 0x50,, 0x4190419,,
-Sendinput, {F6}/a /ban  30 cheat | tsunami {left 20}
+Sendinput, {F6}/ban  30 cheat {left 10}
 Return
 
 Numpad5::
 SendMessage, 0x50,, 0x4190419,,
-Sendinput, {F6}/a /ban  30 упом родных | tsunami {left 26}
+Sendinput, {F6}/ban  30 упом родных {left 16}
 Return
 
 Numpad6::
 SendMessage, 0x50,, 0x4190419,,
-Sendinput, {F6}/a /kick  помеха | tsunami {left 18}
+Sendinput, {F6}/kick  помеха  {left 9}
 Return
 
 Numpad7::
